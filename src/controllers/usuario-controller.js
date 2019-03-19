@@ -29,14 +29,18 @@ exports.getById = async(req, res, next) => {
 
 exports.post = async(req, res, next) => {   
     try {    
-        await repository.create({
+        await repository.create({ 
             nome: req.body.nome,
-            empresa: req.body.empresa,
-            email: req.body.email,           
-            pessoatipo: req.body.pessoatipo,
-            cpfcnpj: req.body.cpfcnpj,
-            tel: req.body.tel,
-            status_fo: req.body.status_fo              
+            sobrenome: req.body.sobrenome,
+            email: req.body.email,
+            senha: req.body.senha,
+            cel: req.body.cel,
+            cep: req.body.cep,
+            logradouro: req.body.logradouro,
+            bairro: req.body.bairro,
+            estado: req.body.estado,
+            municipio: req.body.municipio,
+            status_fo: req.body.status_fo,              
         });
         
         //var conta = await repository.getByEmail(req.body.email);

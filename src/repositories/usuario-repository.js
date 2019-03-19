@@ -21,6 +21,7 @@ exports.getByEmail = async(email) => {
 }
 
 exports.create = async(data) => {
+    console.log(data);
     var usuario = new Usuario(data);   
     await usuario.save();
 }
