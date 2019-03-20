@@ -20,8 +20,13 @@ exports.getByEmail = async(email) => {
     return usuario;   
 }
 
-exports.create = async(data) => {
-    console.log(data);
+exports.getByCel = async(cel) => {
+    const usuario = await Usuario
+        .findOne({cel: cel}).select('_id');            
+    return usuario;   
+}
+
+exports.create = async(data) => {   
     var usuario = new Usuario(data);   
     await usuario.save();
 }

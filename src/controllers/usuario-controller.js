@@ -1,5 +1,6 @@
 'use strict';
-
+const ValidationCommon = require('../validators/common-validator');
+const ValidationUsuario = require('../validators/usuario-validator');
 const repository = require('../repositories/usuario-repository');
 const emailService = require('../services/email-service');
 const emailTemplate = require('../templates/confirmar-email');
@@ -27,8 +28,40 @@ exports.getById = async(req, res, next) => {
     }
 }
 
-exports.post = async(req, res, next) => {   
-    try {    
+exports.post = async(req, res, next) => {  
+   
+    try { 
+        let validCommon = new ValidationCommon();      
+        
+        validCommon.isRequired(req.body.nome, "Nome obrigatório");
+        validCommon.isRequired(req.body.sobrenome, "Sobrenome obrigatório");
+        validCommon.isRequired(req.body.email, "E-mail obrigatório");
+        validCommon.isRequired(req.body.senha, "Senha obrigatório");
+        validCommon.isRequired(req.body.cel, "Celular obrigatório");
+        validCommon.isRequired(req.body.cep, "CEP obrigatório");
+        validCommon.isRequired(req.body.logradouro, "Logradouro obrigatório");
+        validCommon.isRequired(req.body.bairro, "Bairro obrigatório");
+        validCommon.isRequired(req.body.estado, "Estado obrigatório");
+        validCommon.isRequired(req.body.municipio, "Município obrigatório");
+        validCommon.isEmail(req.body.email, "E-mail inválido");
+
+        console.log("validCommon", validCommon.isValid());
+        if (!validCommon.isValid()) {
+            res.status(400).send(validCommon.errors()).end();
+            return;
+        } 
+        
+        let validUsuario = new ValidationUsuario();
+
+        validUsuario.extsCel(req.body.cel, "Celular já existe");
+        validUsuario.extsEmail(req.body.email, "E-mail já existe");
+      
+        console.log("validUsuario", validUsuario.isValid());
+        if (!validUsuario.isValid()) {
+            res.status(400).send(validUsuario.errors()).end();
+            return;
+        }      
+       
         await repository.create({ 
             nome: req.body.nome,
             sobrenome: req.body.sobrenome,
@@ -43,8 +76,8 @@ exports.post = async(req, res, next) => {
             status_fo: req.body.status_fo,              
         });
         
-        //var conta = await repository.getByEmail(req.body.email);
-           
+       
+        
         // //E-mail validation
         //  emailService.sendMailUser(
         //     req.body.email,
