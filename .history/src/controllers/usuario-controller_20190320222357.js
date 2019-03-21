@@ -30,7 +30,6 @@ exports.getById = async (req, res, next) => {
 
 exports.post = async (req, res, next) => {
   try {
-    //ativo
     req.body.status_fo = "5c9152b564856719b4c5b6aa";
 
     let validCommon = new ValidationCommon();

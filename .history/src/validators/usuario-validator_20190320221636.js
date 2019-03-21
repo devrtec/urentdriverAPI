@@ -29,7 +29,7 @@ Validation.prototype.clear = () => {
 }
 
 Validation.prototype.isValid = () => {
-    return errors.length == 0;
+    return await errors.length == 0;
 }
 
 module.exports = Validation;

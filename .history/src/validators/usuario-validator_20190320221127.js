@@ -9,16 +9,15 @@ function Validation() {
 
 Validation.prototype.extsCel = async (value, message) => {
     const val = await repository.getByCel(value);
-    console.log(val);
-    if (val)
+    if (!val)
         errors.push({ message: message });        
 }
 
-// Validation.prototype.extsEmail = async (value, message) => {
-//     const val = await repository.getByEmail(value);   
-//     if (val)
-//         errors.push({ message: message });
-// }
+Validation.prototype.extsEmail = async (value, message) => {
+    const val = await repository.getByEmail(value);   
+    if (!val)
+        errors.push({ message: message });
+}
 
 Validation.prototype.errors = () => {
     return errors;

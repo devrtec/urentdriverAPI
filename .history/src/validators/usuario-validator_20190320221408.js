@@ -28,8 +28,8 @@ Validation.prototype.clear = () => {
     errors = [];
 }
 
-Validation.prototype.isValid = () => {
-    return errors.length == 0;
+Validation.prototype.isValid = async () => {
+    return await errors.length == 0;
 }
 
 module.exports = Validation;

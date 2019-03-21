@@ -28,7 +28,7 @@ Validation.prototype.clear = () => {
     errors = [];
 }
 
-Validation.prototype.isValid = () => {
+Validation.prototype.isValid = async () => {
     return errors.length == 0;
 }
 

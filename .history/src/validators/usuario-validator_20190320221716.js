@@ -7,8 +7,8 @@ function Validation() {
     errors = [];
 }
 
-Validation.prototype.extsCel = async (value, message) => {
-    const val = await repository.getByCel(value);
+Validation.prototype.extsCel = (value, message) => {
+    const val = repository.getByCel(value);
     console.log(val);
     if (val)
         errors.push({ message: message });        
