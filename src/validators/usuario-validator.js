@@ -20,7 +20,7 @@ Validation.prototype.extsEmail = async (value, message) => {
 }
 
 Validation.prototype.errors = () => {
-    return errors;
+    return errors[0];
 }
 
 Validation.prototype.clear = () => {

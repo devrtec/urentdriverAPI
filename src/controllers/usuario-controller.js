@@ -63,7 +63,7 @@ exports.post = async(req, res, next) => {
             return;
         }      
        
-        await repository.create({ 
+        let usuario = await repository.create({ 
             nome: req.body.nome,
             sobrenome: req.body.sobrenome,
             email: req.body.email,
@@ -90,7 +90,7 @@ exports.post = async(req, res, next) => {
         //     'R-Finan: Aguardando validação',           
         //     ('<p>{0}<p>').replace('{0}',req.body.email));
 
-        res.status(201).send();
+        res.status(201).send(usuario);
     } catch (e) {      
         res.status(500).send({
             message: e.message

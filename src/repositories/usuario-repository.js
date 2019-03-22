@@ -26,9 +26,10 @@ exports.getByCel = async(cel) => {
     return usuario;   
 }
 
-exports.create = async(data) => {   
+exports.create = async(data) => {      
     var usuario = new Usuario(data);   
     await usuario.save();
+    return usuario; 
 }
 
 exports.updateStatus = async(id, status) => {
