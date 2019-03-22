@@ -31,6 +31,9 @@ exports.getById = async(req, res, next) => {
 exports.post = async(req, res, next) => {  
    
     try { 
+        //ativo
+        req.body.status_fo = "5c9152b564856719b4c5b6aa";
+
         let validCommon = new ValidationCommon();      
         
         validCommon.isRequired(req.body.nome, "Nome obrigatório");
@@ -44,8 +47,7 @@ exports.post = async(req, res, next) => {
         validCommon.isRequired(req.body.estado, "Estado obrigatório");
         validCommon.isRequired(req.body.municipio, "Município obrigatório");
         validCommon.isEmail(req.body.email, "E-mail inválido");
-
-        console.log("validCommon", validCommon.isValid());
+      
         if (!validCommon.isValid()) {
             res.status(400).send(validCommon.errors()).end();
             return;
@@ -53,11 +55,10 @@ exports.post = async(req, res, next) => {
         
         let validUsuario = new ValidationUsuario();
 
-        validUsuario.extsCel(req.body.cel, "Celular já existe");
-        validUsuario.extsEmail(req.body.email, "E-mail já existe");
-      
-        console.log("validUsuario", validUsuario.isValid());
-        if (!validUsuario.isValid()) {
+        await validUsuario.extsCel(req.body.cel, "Celular já existe");
+        await validUsuario.extsEmail(req.body.email, "E-mail já existe");      
+        
+        if (!await validUsuario.isValid()) {
             res.status(400).send(validUsuario.errors()).end();
             return;
         }      
@@ -74,10 +75,8 @@ exports.post = async(req, res, next) => {
             estado: req.body.estado,
             municipio: req.body.municipio,
             status_fo: req.body.status_fo,              
-        });
-        
-       
-        
+        });  
+               
         // //E-mail validation
         //  emailService.sendMailUser(
         //     req.body.email,
