@@ -29,6 +29,7 @@ const usuario = require('./models/usuario-model');
 const objeto = require('./models/objeto-model');
 const fieldoptions = require('./models/fieldoptions-model');
 const fieldoptionsvalues = require('./models/fieldoptionsvalues-model');
+const locador = require('./models/locador-model');
 
 //route
 const indexRoute = require('./routes/index-route');
@@ -37,6 +38,7 @@ const usuarioRoute = require('./routes/usuario-route');
 const objetoRoute = require('./routes/objeto-route');
 const fieldoptionsRoute = require('./routes/fieldoptions-route');
 const fieldoptionsvaluesRoute = require('./routes/fieldoptionsvalues-route');
+const locadorRoute = require('./routes/locador-route');
 
 //main
 app.use('/', indexRoute);
@@ -44,5 +46,6 @@ app.use('/usuarios', usuarioRoute);
 app.use('/objetos', objetoRoute);
 app.use('/fieldoptions', fieldoptionsRoute);
 app.use('/fieldoptionsvalues', fieldoptionsvaluesRoute);
+app.use('/locadores', locadorRoute);
 
 module.exports = app;

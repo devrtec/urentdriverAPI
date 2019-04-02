@@ -2,9 +2,6 @@
 const ValidationCommon = require('../validators/common-validator');
 const ValidationUsuario = require('../validators/usuario-validator');
 const repository = require('../repositories/usuario-repository');
-const emailService = require('../services/email-service');
-const emailTemplate = require('../templates/confirmar-email');
-const config = require('../config')
 
 exports.get = async(req, res, next) => {
     try {
@@ -31,7 +28,7 @@ exports.getById = async(req, res, next) => {
 exports.post = async(req, res, next) => {  
    
     try { 
-        //ativo
+        //aguardando validação
         req.body.status_fo = "5c9152b564856719b4c5b6aa";
 
         let validCommon = new ValidationCommon();      
@@ -75,50 +72,10 @@ exports.post = async(req, res, next) => {
             estado: req.body.estado,
             municipio: req.body.municipio,
             status_fo: req.body.status_fo,              
-        });  
-               
-        // //E-mail validation
-        //  emailService.sendMailUser(
-        //     req.body.email,
-        //     emailTemplate.subject,           
-        //     emailTemplate.body
-        //     .replace('{0}', req.body.nome)
-        //     .replace('{1}', config.urlbase + 'contas/05OkENlBX/'+ conta._id));            
-        
-        // //E-mail admin
-        // emailService.sendMailAdmin(           
-        //     'R-Finan: Aguardando validação',           
-        //     ('<p>{0}<p>').replace('{0}',req.body.email));
+        }); 
 
         res.status(201).send(usuario);
     } catch (e) {      
-        res.status(500).send({
-            message: e.message
-        });
-    }
-};
-
-exports.updateStatus = async(req, res, next) => {   
-    try {    
-        await repository.updateStatus(req.params.id,"5c0510338d7cfa1ba0f4d7b0");
-        res.status(201).send(emailTemplate.resp);
-
-         //E-mail admin
-         emailService.sendMailAdmin(           
-            'R-Finan: E-mail validado',           
-            ('<p>{0}<p>').replace('{0}',req.params.id));
-    } catch (e) {      
-        res.status(500).send({
-            message: e.message
-        });
-    }
-};
-
-exports.put = async(req, res, next) => {
-    try {
-        await repository.update(req.params.id);
-        res.status(200).send();
-    } catch (e) {
         res.status(500).send({
             message: e.message
         });

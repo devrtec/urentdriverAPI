@@ -7,6 +7,12 @@ function Validation() {
     errors = [];
 }
 
+Validation.prototype.extsId = async (value, message) => {
+    const val = await repository.getById(value);
+    if (val)
+        errors.push({ message: message });        
+}
+
 Validation.prototype.extsCel = async (value, message) => {
     const val = await repository.getByCel(value);
     if (val)

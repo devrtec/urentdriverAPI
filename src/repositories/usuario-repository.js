@@ -32,16 +32,6 @@ exports.create = async(data) => {
     return usuario; 
 }
 
-exports.updateStatus = async(id, status) => {
-    await Usuario
-        .findByIdAndUpdate(id, {
-            $set: {                
-                status_fo: status, 
-                upd_date: new Date(Date.now()).toISOString()
-            }
-        });
-}
-
 exports.delete = async(id) => {
     await Usuario
         .findOneAndRemove(id);

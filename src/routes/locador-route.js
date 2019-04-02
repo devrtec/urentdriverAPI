@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const controller = require('../controllers/fieldoptionsvalues-controller');
+const controller = require('../controllers/locador-controller');
 
 const router = express.Router();
 
