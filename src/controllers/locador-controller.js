@@ -1,6 +1,8 @@
 'use strict';
 const ValidatioUsuario = require('../validators/usuario-validator');
+const ValidatioLocador = require('../validators/locador-validator');
 const repository = require('../repositories/locador-repository');
+
 
 exports.get = async(req, res, next) => {
     try {
@@ -16,11 +18,19 @@ exports.get = async(req, res, next) => {
 exports.post = async(req, res, next) => {  
    
     try {  
-        let validUsuario = new ValidatioUsuario();
-        await validUsuario.extsId(req.body.id_user, "Usuário não existe");       
+        let validusuario = new ValidatioUsuario();
+        await validusuario.noExtsId(req.body.id_user, "Usuário não existe");       
         
-        if (!await validUsuario.isValid()) {
-            res.status(400).send(validUsuario.errors()).end();
+        if (!await validusuario.isValid()) {            
+            res.status(400).send(validusuario.errors()).end();
+            return;
+        }      
+
+        let validLocador = new ValidatioLocador();
+        await validLocador.extsId_user(req.body.id_user, "Locador já existe");       
+        
+        if (!await validLocador.isValid()) {
+            res.status(400).send(validLocador.errors()).end();
             return;
         }      
        

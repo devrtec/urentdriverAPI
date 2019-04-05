@@ -7,6 +7,7 @@ const schema = new Schema({
     id_user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Usuario',
+        unique: true,  
         required: true,      
         index: true
     },   
